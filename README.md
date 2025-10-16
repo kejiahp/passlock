@@ -18,7 +18,7 @@ This project involves creating an application to securely manage usernames and p
 - Secure password storage with encryption and decryption algorithms.
 - Random password generation.
 - Ability to search credentials by name and sort them by last updated date.
-- Masked display of passwords, with option to reveal in plain test on demand.
+- Masked display of passwords, with option to reveal in plain text on demand.
 
 ## Running the project locally
 
@@ -83,3 +83,65 @@ make
 
 ./src/passlock
 ```
+
+## High-Level System Design (My Thought Process on the implementation)
+
+In this section we will be going through the [assessment description](#assessment-description) and outlining how we will implement each feature.
+
+Markdown tables were generated using [www.tablesgenerator.com](https://www.tablesgenerator.com/markdown_tables#)
+
+### 1. Multi-user account support with login system (normal users and admin).
+
+Solution:
+
+- User database schema collecting minimal information along with user types e.g. `NORMAL` and `ADMIN`.
+
+  - **User schema**: This represents the schema for storing user details.
+
+    | ID   | email  | password | type            | createdAt | updatedAt |
+    | ---- | ------ | -------- | --------------- | --------- | --------- |
+    | uuid | string | string   | NORMAL or ADMIN | datetime  | datetime  |
+
+- Account creation process, information like email (unique), password (it will be hashed) is collected and saved in a datastore, We will be using SQlite for datastore ensuring data persistence.
+- Login system where the user authenticates with their email and password. The password gets hashed and compared with the already stored hashed password. If they are same they are granted access to their data else an appropriate error message is displayed.
+
+### 2. Storing and managing credentials for websites, desktop applications and games.
+
+Solution:
+
+- **Credentail schema**: This represents the schema for storing user credentails.
+
+  | ID   | userId | name   | email  | password | createdAt | updatedAt |
+  | ---- | ------ | ------ | ------ | -------- | --------- | --------- |
+  | uuid | uuid   | string | string | string   | datetime  | datetime  |
+
+### 3. Add, edit and delete credentials with audit of date created and last updated.
+
+Solution:
+
+- Basic CRUD operations on the **Credential** schema, ensuring this operations can only be performed by the user whom created the account.
+
+### 4. Secure password storage with encryption and decryption algorithms.
+
+Solution:
+
+- Use [OpenSSL](https://openssl-library.org/) for Encryption/Decryption and Hashing.
+
+### 5. Random password generation.
+
+Solution:
+
+- This will be done using the random password generator function provided by the static `utilities` library.
+
+### 6. Ability to search credentials by name and sort them by last updated date.
+
+Solution:
+
+- Search: Credentials should be searchable via the `name` field of the `Credentails` table.
+- Sort: Credential should be sortable using the `updatedAt` field of the `Credentials` table. The sorting by default should be in descending order.
+
+### 7. Masked display of passwords, with option to reveal in plain text on demand.
+
+Solution:
+
+- This will use a unique key created for each user on sign up to decrypt their passwords, revealing it in a readable plain-text format.

@@ -1,6 +1,12 @@
 #include <iostream>
+#include <utilities.hpp>
 
-void utilitiesMain()
+namespace Utilities
 {
-    std::cout << "UtilitiesMain\n";
+
+    void utilitiesMain()
+    {
+        std::cout << "UtilitiesMain\n";
+        std::cout << Utilities::randomPasswordGenerator(10) << std::endl;
+    }
 }

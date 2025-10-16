@@ -1,3 +1,10 @@
+#include <string>
+
 #pragma once
 
-void utilitiesMain();
+namespace Utilities
+{
+    std::string randomPasswordGenerator(int length);
+
+    void utilitiesMain();
+}
