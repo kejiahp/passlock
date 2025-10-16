@@ -98,9 +98,9 @@ Solution:
 
   - **User schema**: This represents the schema for storing user details.
 
-    | ID   | email  | password | type            | createdAt | updatedAt |
-    | ---- | ------ | -------- | --------------- | --------- | --------- |
-    | uuid | string | string   | NORMAL or ADMIN | datetime  | datetime  |
+    | id   | email  | password | type            | key    | createdAt | updatedAt |
+    | ---- | ------ | -------- | --------------- | ------ | --------- | --------- |
+    | uuid | string | string   | NORMAL or ADMIN | string | datetime  | datetime  |
 
 - Account creation process, information like email (unique), password (it will be hashed) is collected and saved in a datastore, We will be using SQlite for datastore ensuring data persistence.
 - Login system where the user authenticates with their email and password. The password gets hashed and compared with the already stored hashed password. If they are same they are granted access to their data else an appropriate error message is displayed.
@@ -111,9 +111,9 @@ Solution:
 
 - **Credentail schema**: This represents the schema for storing user credentails.
 
-  | ID   | userId | name   | email  | password | createdAt | updatedAt |
-  | ---- | ------ | ------ | ------ | -------- | --------- | --------- |
-  | uuid | uuid   | string | string | string   | datetime  | datetime  |
+  | id   | userId | title  | email   | username | password | url     | createdAt | updatedAt |
+  | ---- | ------ | ------ | ------- | -------- | -------- | ------- | --------- | --------- |
+  | uuid | uuid   | string | string? | string?  | string?  | string? | datetime  | datetime  |
 
 ### 3. Add, edit and delete credentials with audit of date created and last updated.
 
@@ -137,7 +137,7 @@ Solution:
 
 Solution:
 
-- Search: Credentials should be searchable via the `name` field of the `Credentails` table.
+- Search: Credentials should be searchable via the `title` field of the `Credentails` table.
 - Sort: Credential should be sortable using the `updatedAt` field of the `Credentials` table. The sorting by default should be in descending order.
 
 ### 7. Masked display of passwords, with option to reveal in plain text on demand.
