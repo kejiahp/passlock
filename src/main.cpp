@@ -1,15 +1,15 @@
 #include <iostream>
 #include <utilities.hpp>
+#include <db.hpp>
 
 void userMain();
 
 int main()
 {
-    std::cout << "Hello World MAIN\n";
 
     userMain();
+    bae();
     Utilities::utilitiesMain();
 
-    std::cout << "Hello World MAIN\n";
     return 0;
 }

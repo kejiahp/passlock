@@ -1,0 +1,3 @@
+[submodule "extern/sqlitecpp"]
+	path = extern/sqlitecpp
+	url = https://github.com/SRombauts/SQLiteCpp.git
