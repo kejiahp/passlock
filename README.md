@@ -90,6 +90,11 @@ In this section we will be going through the [assessment description](#assessmen
 
 Markdown tables were generated using [www.tablesgenerator.com](https://www.tablesgenerator.com/markdown_tables#)
 
+We will be using [SQLiteC++](https://github.com/SRombauts/SQLiteCpp) as our sqlite cli. Its essentially a lightweight C++ wrapper around the SQLite (sqlite3) library. Its provides the following features which make it a great choice:
+
+- RAII resource management.
+- First class C++ support as opposed to SQLite(sqlite3) which is C-based.
+
 ### 1. Multi-user account support with login system (normal users and admin).
 
 Solution:
@@ -98,9 +103,9 @@ Solution:
 
   - **User schema**: This represents the schema for storing user details.
 
-    | id   | email  | password | type            | key    | createdAt | updatedAt |
-    | ---- | ------ | -------- | --------------- | ------ | --------- | --------- |
-    | uuid | string | string   | NORMAL or ADMIN | string | datetime  | datetime  |
+    | id  | email  | password | type            | key    | createdAt | updatedAt |
+    | --- | ------ | -------- | --------------- | ------ | --------- | --------- |
+    | int | string | string   | NORMAL or ADMIN | string | datetime  | datetime  |
 
 - Account creation process, information like email (unique), password (it will be hashed) is collected and saved in a datastore, We will be using SQlite for datastore ensuring data persistence.
 - Login system where the user authenticates with their email and password. The password gets hashed and compared with the already stored hashed password. If they are same they are granted access to their data else an appropriate error message is displayed.
@@ -111,9 +116,9 @@ Solution:
 
 - **Credentail schema**: This represents the schema for storing user credentails.
 
-  | id   | userId | title  | email   | username | password | url     | createdAt | updatedAt |
-  | ---- | ------ | ------ | ------- | -------- | -------- | ------- | --------- | --------- |
-  | uuid | uuid   | string | string? | string?  | string?  | string? | datetime  | datetime  |
+  | id  | userId | title  | email   | username | password | url     | createdAt | updatedAt |
+  | --- | ------ | ------ | ------- | -------- | -------- | ------- | --------- | --------- |
+  | int | int    | string | string? | string?  | string?  | string? | datetime  | datetime  |
 
 ### 3. Add, edit and delete credentials with audit of date created and last updated.
 

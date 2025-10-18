@@ -2,14 +2,9 @@
 #include <utilities.hpp>
 #include <db.hpp>
 
-void userMain();
-
 int main()
 {
-
-    userMain();
-    bae();
-    Utilities::utilitiesMain();
+    DB::seedDB(); // Seeds database with tables
 
     return 0;
 }

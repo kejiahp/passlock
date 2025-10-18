@@ -6,5 +6,4 @@ namespace Utilities
 {
     std::string randomPasswordGenerator(int length);
 
-    void utilitiesMain();
 }
