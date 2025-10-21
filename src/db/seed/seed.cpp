@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <SQLiteCpp/SQLiteCpp.h>
-#include <db.hpp>
+#include "db.hpp"
 
 // Seeds the database:
 // - creates the `users` table.

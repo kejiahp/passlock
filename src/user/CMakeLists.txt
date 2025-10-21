@@ -7,5 +7,5 @@ message(STATUS "USER: " ${USER_SOURCES})
 add_library(user STATIC ${USER_SOURCES})
 
 
-target_link_libraries(user PRIVATE SQLiteCpp)
+target_link_libraries(user PRIVATE SQLiteCpp db utilities)
 target_include_directories(user PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
