@@ -103,9 +103,9 @@ Solution:
 
   - **User schema**: This represents the schema for storing user details.
 
-    | id  | email  | password | type            | key    | createdAt | updatedAt |
-    | --- | ------ | -------- | --------------- | ------ | --------- | --------- |
-    | int | string | string   | NORMAL or ADMIN | string | datetime  | datetime  |
+    | id  | email  | password | type            | key    | iv     | createdAt | updatedAt |
+    | --- | ------ | -------- | --------------- | ------ | ------ | --------- | --------- |
+    | int | string | string   | NORMAL or ADMIN | string | string | datetime  | datetime  |
 
 - Account creation process, information like email (unique), password (it will be hashed) is collected and saved in a datastore, We will be using SQlite for datastore ensuring data persistence.
 - Login system where the user authenticates with their email and password. The password gets hashed and compared with the already stored hashed password. If they are same they are granted access to their data else an appropriate error message is displayed.

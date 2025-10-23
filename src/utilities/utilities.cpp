@@ -34,4 +34,10 @@ namespace Utilities
         }
         std::cout << ss.str();
     }
+    void print(const std::string &text)
+    {
+        std::ostringstream ss;
+        ss << text;
+        std::cout << ss.str();
+    }
 }

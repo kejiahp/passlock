@@ -6,24 +6,19 @@
 
 void UserService::createUserService()
 {
-    std::string email, password, type, key;
-    std::cout << "Enter Email: ";
+    std::string email, password, type = "NORMAL", key;
+
+    Utilities::print("Enter Email: ");
     std::cin >> email;
-    Utilities::printLinePadding();
+
     if (!Utilities::isEmail(email))
     {
         std::cout << "Invalid Email\n";
     }
 
     // Validate password or generate a random password
-    std::cout << "Enter Password: ";
+    Utilities::print("Enter Password (Press G to generate a random password): ");
     std::cin >> password;
-    Utilities::printLinePadding();
-
-    // Validate Type (Normal or Admin)
-    std::cout << "Enter Type: ";
-    std::cin >> type;
-    Utilities::printLinePadding();
 
     // Generate Key
     // Utilities::generateKey()

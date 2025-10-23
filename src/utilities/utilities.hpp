@@ -12,4 +12,6 @@ namespace Utilities
     void printTextWithIndent(const char *value, int indent = 10);
     // Outputs a number of new lines on the console
     void printLinePadding(int lineHeight = 1);
+    // Outputs given text to console
+    void print(const std::string &text);
 }
