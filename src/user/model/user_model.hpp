@@ -61,7 +61,10 @@ public:
          const std::string &uptAt) : id(id), email(em), password(pass), type(USER_TYPE_FromString(ty)), key(ky), iv(iv), createdAt(crtAt), updatedAt(uptAt)
     {
     }
+
     int getId() const { return id; }
+    std::string getEmail() const { return email; }
+    std::string getPassword() const { return password; }
 
     static User mapFromStatement(SQLite::Statement &stmt)
     {

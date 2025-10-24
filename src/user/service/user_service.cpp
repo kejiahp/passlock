@@ -12,7 +12,7 @@ void UserService::createUserService()
     std::string email, password, type = "NORMAL", key, iv;
 
     Utilities::printHorizonatalLine();
-    Utilities::printTextWithIndent("Create an Account - No spaces allowed🚫");
+    Utilities::printTextWithIndent("Account Creation - No spaces allowed🚫");
     Utilities::printHorizonatalLine();
 
     while (accountNotCreated)
@@ -49,7 +49,7 @@ void UserService::createUserService()
         }
 
         // Attempts to erase whitespaces from the password
-        // Utilities::fullTrim(password);
+        Utilities::fullTrim(password);
 
         if (password.length() < 10)
         {
@@ -63,11 +63,11 @@ void UserService::createUserService()
         // Generate a unique encryption/decryption initial vector (iv) for each user
         iv = Crypt::generate128BitHex();
         // encrypt users password
-        std::string passwordCipher = Crypt::encryptAES128(password, key, iv);
+        std::string passwordHash = Crypt::hashSHA256(password);
 
         if (UserQueries::createAccount(
                 email,
-                passwordCipher,
+                passwordHash,
                 USER_TYPE_FromString(type),
                 key,
                 iv))
@@ -84,6 +84,54 @@ void UserService::createUserService()
     std::cout << std::endl;
 };
 
-User UserService::loginUserService() {
+User UserService::loginUserService()
+{
 
+    std::optional<User> authUser = std::nullopt;
+    std::string email, password;
+
+    // accept and validate email
+
+    Utilities::printHorizonatalLine();
+    Utilities::printTextWithIndent("Account Login - No spaces allowed🚫");
+    Utilities::printHorizonatalLine();
+
+    while (authUser.has_value() == false)
+    {
+        Utilities::print("Enter Email: ");
+        std::getline(std::cin, email);
+
+        if (!Utilities::isEmail(email))
+        {
+            std::cout << "Invalid Email" << std::endl;
+            continue;
+        }
+
+        auto userWithEmail = UserQueries::getUserByEmail(email);
+
+        // check for existing user with the same email
+        if (!userWithEmail)
+        {
+            Utilities::print("Account with email " + email + " does not exist in the system.");
+            std::cout << std::endl;
+            continue;
+        }
+
+        Utilities::print("Enter Password: ");
+        std::getline(std::cin, password);
+
+        std::string hashpassword = Crypt::hashSHA256(password);
+
+        // match hashed passwords
+        if (userWithEmail->getPassword() != hashpassword)
+        {
+            Utilities::print("Invalid credentials");
+            std::cout << std::endl;
+            continue;
+        }
+
+        authUser = userWithEmail.value();
+    }
+
+    return authUser.value();
 };

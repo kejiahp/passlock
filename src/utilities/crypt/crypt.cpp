@@ -1,10 +1,11 @@
+#include <vector>
+#include <sstream>
+#include <iostream>
 #include <openssl/conf.h>
 #include <openssl/evp.h>
 #include <openssl/err.h>
 #include <openssl/rand.h>
-#include <vector>
-#include <sstream>
-#include <iostream>
+#include <openssl/sha.h>
 
 #include "crypt.hpp"
 #include <iomanip>
@@ -110,6 +111,17 @@ namespace Crypt
         EVP_CIPHER_CTX_free(ctx);
         plaintext.resize(plaintext_len);
         return std::string(plaintext.begin(), plaintext.end());
+    }
+
+    std::string hashSHA256(const std::string &text)
+    {
+        unsigned char hash[SHA256_DIGEST_LENGTH];
+        SHA256(reinterpret_cast<const unsigned char *>(text.c_str()), text.size(), hash);
+
+        size_t size = sizeof(hash) / sizeof(hash[0]);
+        std::vector<unsigned char> hashVec(hash, hash + size);
+
+        return toHex(hashVec);
     }
 
 }
