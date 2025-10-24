@@ -5,6 +5,11 @@
 
 namespace Utilities
 {
+    void fullTrim(std::string &text)
+    {
+        text.erase(std::remove(text.begin(), text.end(), ' '), text.end());
+    }
+
     void printHorizonatalLine(int length)
     {
         std::ostringstream ss;
@@ -32,12 +37,12 @@ namespace Utilities
         {
             ss << "\n";
         }
-        std::cout << ss.str();
+        std::cout << ss.str() << std::flush;
     }
     void print(const std::string &text)
     {
         std::ostringstream ss;
         ss << text;
-        std::cout << ss.str();
+        std::cout << ss.str() << std::flush;
     }
 }

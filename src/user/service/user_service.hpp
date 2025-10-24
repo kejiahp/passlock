@@ -5,6 +5,6 @@
 class UserService
 {
 public:
-    void createUserService();
-    User loginUserService();
+    static void createUserService();
+    static User loginUserService();
 };

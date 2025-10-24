@@ -41,16 +41,17 @@ std::optional<User> UserQueries::getUserByEmail(const std::string &email)
     return std::nullopt;
 }
 
-bool UserQueries::createAccount(const std::string &email, const std::string &password, const USER_TYPE &type, const std::string &key)
+bool UserQueries::createAccount(const std::string &email, const std::string &password, const USER_TYPE &type, const std::string &key, const std::string &iv)
 {
     try
     {
         SQLite::Database &db = DB::DatabaseManager::getInstance().getDB();
-        SQLite::Statement stmt(db, "INSERT INTO users (email, password, type, key) VALUES(?, ?, ?, ?);");
+        SQLite::Statement stmt(db, "INSERT INTO users (email, password, type, key, iv) VALUES(?, ?, ?, ?, ?);");
         stmt.bind(1, email);
         stmt.bind(2, password);
         stmt.bind(3, USER_TYPE_ToString(type));
         stmt.bind(4, key);
+        stmt.bind(5, iv);
         stmt.exec();
         return true;
     }

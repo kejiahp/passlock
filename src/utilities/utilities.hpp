@@ -3,9 +3,11 @@
 namespace Utilities
 {
     // Generates a random password
-    std::string randomPasswordGenerator(int length);
+    std::string randomPasswordGenerator(int length = 10);
     // Checks if email is valid
     bool isEmail(const std::string &email);
+    // Remove all whitespaces from a string
+    void fullTrim(std::string &text);
     // Outputs an horizontal line to the console
     void printHorizonatalLine(int length = 50);
     // Outputs an indented text to the console

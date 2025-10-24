@@ -45,6 +45,7 @@ private:
     std::string password;
     USER_TYPE type;
     std::string key;
+    std::string iv;
     std::string createdAt;
     std::string updatedAt;
 
@@ -55,8 +56,9 @@ public:
          const std::string &pass,
          const std::string &ty,
          const std::string &ky,
+         const std::string &iv,
          const std::string &crtAt,
-         const std::string &uptAt) : id(id), email(em), password(pass), type(USER_TYPE_FromString(ty)), key(ky), createdAt(crtAt), updatedAt(uptAt)
+         const std::string &uptAt) : id(id), email(em), password(pass), type(USER_TYPE_FromString(ty)), key(ky), iv(iv), createdAt(crtAt), updatedAt(uptAt)
     {
     }
     int getId() const { return id; }
@@ -69,6 +71,7 @@ public:
             stmt.getColumn("password").getText(),
             stmt.getColumn("type").getText(),
             stmt.getColumn("key").getText(),
+            stmt.getColumn("iv").getText(),
             stmt.getColumn("createdAt").getText(),
             stmt.getColumn("updatedAt").getText());
     }

@@ -27,6 +27,7 @@ namespace DB
                 "password TEXT NOT NULL,"
                 "type TEXT CHECK(type IN (\"NORMAL\", \"ADMIN\")) NOT NULL DEFAULT \"NORMAL\","
                 "key TEXT NOT NULL,"
+                "iv TEXT NOT NULL,"
                 "createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,"
                 "updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP"
                 ");");
