@@ -51,7 +51,7 @@ private:
 
 public:
     User() = default;
-    User(int id,
+    User(const int &id,
          const std::string &em,
          const std::string &pass,
          const std::string &ty,

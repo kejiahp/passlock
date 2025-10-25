@@ -112,6 +112,8 @@ private:
             }
             else
             {
+                Utilities::print("Invalid Input");
+                std::cout << std::endl;
             }
         }
     }

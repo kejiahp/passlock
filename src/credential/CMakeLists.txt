@@ -7,5 +7,5 @@ message(STATUS "CREDENTIAL: " ${CREDENTIAL_SOURCES})
 add_library(credential STATIC ${CREDENTIAL_SOURCES})
 
 
-target_link_libraries(credential PRIVATE SQLiteCpp utilities)
+target_link_libraries(credential PRIVATE SQLiteCpp db utilities)
 target_include_directories(credential PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
