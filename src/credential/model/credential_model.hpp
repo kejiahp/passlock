@@ -62,7 +62,7 @@ public:
         return *url;
     }
 
-    static Credential mapFromStatement(SQLite::Statement stmt)
+    static Credential mapFromStatement(SQLite::Statement &stmt)
     {
         return Credential(
             stmt.getColumn("id").getInt(),

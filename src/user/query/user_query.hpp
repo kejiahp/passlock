@@ -8,6 +8,7 @@
 class UserQueries
 {
 public:
+    // This function is to be only used/accessed by admins
     static std::vector<User> getAllUsers();
     static std::optional<User> getUserById(int userId);
     static std::optional<User> getUserByEmail(const std::string &email);
