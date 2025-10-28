@@ -6,6 +6,7 @@
 #include "utilities/crypt/crypt.hpp"
 #include "user/service/user_service.hpp"
 #include "user/model/user_model.hpp"
+#include "credential/service/credential_service.hpp"
 
 // Main application singleton
 // Ensuring there is only one instance of the application live at anytime.
@@ -103,6 +104,20 @@ private:
             std::getline(std::cin, cmd);
 
             if (cmd == "1")
+            {
+                // TODO: FIX optional values are always null and getline does not write to them
+                CredentialService::createCredentialService(*userSession);
+            }
+            else if (cmd == "2")
+            {
+            }
+            else if (cmd == "3")
+            {
+            }
+            else if (cmd == "4")
+            {
+            }
+            else if (cmd == "5")
             {
             }
             else if (cmd == "6")

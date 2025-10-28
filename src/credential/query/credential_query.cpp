@@ -3,7 +3,7 @@
 #include <optional>
 
 #include "db.hpp"
-#include "utilities/crypt/crypt.hpp"
+#include "crypt/crypt.hpp"
 #include "credential_query.hpp"
 
 bool CredentialQueries::createCredential(const int &userId,

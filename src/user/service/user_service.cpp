@@ -40,8 +40,6 @@ void UserService::createUserService()
         Utilities::print("Enter Password (Enter only G to generate a random password): ");
         std::getline(std::cin, password);
 
-        std::cout << "password: " << password << std::endl;
-
         if (password.length() == 1 && password == "G")
         {
             password = Utilities::randomPasswordGenerator(20);

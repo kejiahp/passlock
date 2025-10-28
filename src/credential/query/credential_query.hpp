@@ -7,6 +7,7 @@
 
 class CredentialQueries
 {
+public:
     static std::vector<Credential> getCredentialsByUserId(const std::string &userId);
     static std::optional<Credential> getCredentialById(const std::string &credentialId, const std::string &userId);
     static std::vector<Credential> searchCredentialById(const std::string &userId, const std::string &searchVal);

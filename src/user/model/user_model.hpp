@@ -65,6 +65,8 @@ public:
     int getId() const { return id; }
     std::string getEmail() const { return email; }
     std::string getPassword() const { return password; }
+    std::string getIv() const { return iv; }
+    std::string getKey() const { return key; }
 
     static User mapFromStatement(SQLite::Statement &stmt)
     {
