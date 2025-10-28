@@ -1,8 +1,17 @@
 #pragma once
 
+#include <sstream>
 #include <string>
 #include <optional>
 #include <SQLiteCpp/SQLiteCpp.h>
+
+#include "crypt/crypt.hpp"
+
+struct RevealCredentialProps
+{
+    std::string iv;
+    std::string key;
+};
 
 class Credential
 {
@@ -16,6 +25,19 @@ private:
     std::optional<std::string> url;
     std::string createdAt;
     std::string updatedAt;
+
+    std::string showPasswordString(const std::string &cipherText, const std::optional<RevealCredentialProps> &revealProps)
+    {
+        if (revealProps)
+        {
+            return Crypt::decryptAES128(cipherText, revealProps->key, revealProps->iv);
+        }
+        else
+        {
+            std::string repeat(cipherText.length(), '*');
+            return repeat;
+        }
+    }
 
 public:
     Credential() = default;
@@ -74,5 +96,19 @@ public:
             stmt.isColumnNull("url") ? std::nullopt : std::make_optional(stmt.getColumn("url").getString()),
             stmt.getColumn("createdAt").getText(),
             stmt.getColumn("updatedAt").getText());
+    }
+
+    std::string toString(std::optional<RevealCredentialProps> reveal = std::nullopt)
+    {
+        std::ostringstream output;
+        output << "{" << "id: " << id << ", userId: " << userId << ", title: " << title << ", email: " << (email.has_value() ? *email : "NULL") << ", username: " << (username.has_value() ? *username : "NULL") << ", password: " << (password.has_value() ? showPasswordString(*password, reveal) : "NULL") << ", url: " << (url.has_value() ? *url : "NULL") << ", createdAt: " << createdAt << ", updatedAt: " << updatedAt << "}";
+        return output.str();
+    }
+
+    std::string toShortString()
+    {
+        std::ostringstream output;
+        output << "{" << "id: " << id << ", title: " << title << "}";
+        return output.str();
     }
 };

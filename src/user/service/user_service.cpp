@@ -90,9 +90,11 @@ User UserService::loginUserService()
 
     // accept and validate email
 
+    Utilities::printLinePadding();
     Utilities::printHorizonatalLine();
     Utilities::printTextWithIndent("Account Login - No spaces allowed🚫");
     Utilities::printHorizonatalLine();
+    Utilities::printLinePadding();
 
     while (authUser.has_value() == false)
     {

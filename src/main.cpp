@@ -105,20 +105,23 @@ private:
 
             if (cmd == "1")
             {
-                // TODO: FIX optional values are always null and getline does not write to them
                 CredentialService::createCredentialService(*userSession);
             }
             else if (cmd == "2")
             {
+                CredentialService::viewUserCredentialService(*userSession);
             }
             else if (cmd == "3")
             {
+                CredentialService::searchCredentialService(*userSession);
             }
             else if (cmd == "4")
             {
+                CredentialService::updateCredentialService(*userSession);
             }
             else if (cmd == "5")
             {
+                CredentialService::deleteCredentialService(*userSession);
             }
             else if (cmd == "6")
             {

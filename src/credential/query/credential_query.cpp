@@ -50,7 +50,7 @@ bool CredentialQueries::createCredential(const int &userId,
     }
 }
 
-std::optional<Credential> CredentialQueries::getCredentialById(const std::string &credentialId, const std::string &userId)
+std::optional<Credential> CredentialQueries::getCredentialById(const int &credentialId, const int &userId)
 {
     try
     {
@@ -71,13 +71,13 @@ std::optional<Credential> CredentialQueries::getCredentialById(const std::string
     }
 }
 
-std::vector<Credential> CredentialQueries::getCredentialsByUserId(const std::string &userId)
+std::vector<Credential> CredentialQueries::getCredentialsByUserId(const int &userId)
 {
     try
     {
         std::vector<Credential> credentials;
         SQLite::Database &db = DB::DatabaseManager::getInstance().getDB();
-        SQLite::Statement stmt(db, "SELECT * FROM credentials WHERE userId = ?;");
+        SQLite::Statement stmt(db, "SELECT * FROM credentials WHERE userId = ? ORDER BY createdAt ASC;");
         stmt.bind(1, userId);
         while (stmt.executeStep())
         {
@@ -92,7 +92,7 @@ std::vector<Credential> CredentialQueries::getCredentialsByUserId(const std::str
     }
 }
 
-bool CredentialQueries::deleteCredentialById(const std::string &credentialId, const std::string &userId)
+bool CredentialQueries::deleteCredentialById(const int &credentialId, const int &userId)
 {
     try
     {
@@ -111,8 +111,8 @@ bool CredentialQueries::deleteCredentialById(const std::string &credentialId, co
 }
 
 bool CredentialQueries::updateCredential(
-    const std::string &id,
-    const std::string &userId,
+    const int &id,
+    const int &userId,
     const std::optional<std::string> &title,
     const std::optional<std::string> &email,
     const std::optional<std::string> &username,
@@ -171,7 +171,6 @@ bool CredentialQueries::updateCredential(
             updateQuery << *it;
         }
         query = "UPDATE credentials SET " + updateQuery.str() + " WHERE id = ? AND userId = ?;";
-        std::cout << "Query: " << query << std::endl;
 
         SQLite::Statement stmt(db, query);
         for (auto bindVal : binder)
@@ -184,8 +183,6 @@ bool CredentialQueries::updateCredential(
         ++count;
         stmt.bind(count, userId);
 
-        std::cout << "SQL QUERY: " << stmt.getQuery() << std::endl;
-
         stmt.exec();
         return true;
     }
@@ -196,15 +193,15 @@ bool CredentialQueries::updateCredential(
     }
 }
 
-std::vector<Credential> CredentialQueries::searchCredentialById(const std::string &userId, const std::string &searchVal)
+std::vector<Credential> CredentialQueries::searchCredentialById(const int &userId, const std::string &searchVal)
 {
     try
     {
         std::vector<Credential> searchResults;
         SQLite::Database &db = DB::DatabaseManager::getInstance().getDB();
-        SQLite::Statement stmt(db, "SELECT * FROM credentials LIKE %?% WHERE userId = ? ORDER BY updatedAt DESC;");
-        stmt.bind(1, searchVal);
-        stmt.bind(2, userId);
+        SQLite::Statement stmt(db, "SELECT * FROM credentials WHERE userId = ? AND title LIKE ? ORDER BY updatedAt DESC;");
+        stmt.bind(1, userId);
+        stmt.bind(2, "%" + searchVal + "%");
 
         while (stmt.executeStep())
         {
