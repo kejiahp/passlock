@@ -20,33 +20,45 @@ This project involves creating an application to securely manage usernames and p
 - Ability to search credentials by name and sort them by last updated date.
 - Masked display of passwords, with option to reveal in plain text on demand.
 
-## Running the project locally
+## Getting Started
 
-This project was setup using [CMake, a cross-platform build tool](https://cmake.org/) on a M1 Mac computer system.
-
+This project was setup using [CMake, a cross-platform build tool](https://cmake.org/) on a Mac computer system.
 Below are instructions to build and run the project on your local machine.
 
-### CMake Installation
+### Git:
+
+Use git to clone the repository. Then init and update submodule "SQLiteCpp".
+
+```sh
+git clone https://github.com/kejiahp/passlock.git
+cd passlock
+git submodule init
+git submodule update
+```
+
+### CMake Installation:
 
 First check if CMake is installed on the system.
 
 ```sh
-cmake --version # displays cmake version if its installed
+cmake --version
 ```
 
 If you see a message saying `cmake is not recognized` or something similar. Follow the steps below to install CMake on your computer.
 
-#### CMake Installation MacOS and Windows
+### CMake Installation MacOS and Windows:
 
-##### Install CMake
+#### Install CMake MacOS
 
 ```sh
 brew install cmake # MacOS
-
-https://cmake.org/download/ # Follow this URL for Windows
 ```
 
-#### OpenSSL Installation MacOS and Windows
+#### Install CMake Windows
+
+Follow this URL for Windows: [https://cmake.org/download/](https://cmake.org/download/)
+
+### OpenSSL Installation MacOS and Windows
 
 The project uses OpenSSL for hashing and encryption/decryption of credentials.
 
@@ -56,7 +68,7 @@ Check if OpenSSL is already installed
 openssl --version # both MacOS and Windows
 ```
 
-##### Install OpenSSL MacOS
+#### Install OpenSSL MacOS
 
 ```sh
 brew install openssl
@@ -64,7 +76,7 @@ brew install openssl
 
 After installation, if openssl is still not found, ensure shell configuration file (.zshrc, .bash_profile, etc) is updated.
 
-##### Install OpenSSL Windows
+#### Install OpenSSL Windows
 
 Follow this link [How to install OpenSSL (3.0.1) on Windows 10 (64-bit)](https://youtu.be/jrHnP6Gazf0?si=E7tmClrxQrJZ7h6h). Installing versions `3.5.2` and above should be fine.
 
