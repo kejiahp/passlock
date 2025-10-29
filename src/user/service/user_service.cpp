@@ -78,7 +78,7 @@ void UserService::createUserService()
         }
     }
 
-    Utilities::print("Account Created Successfully 🤗");
+    Utilities::print("Account Created Successfully 🤗 ");
     std::cout << std::endl;
 };
 

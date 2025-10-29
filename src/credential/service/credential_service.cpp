@@ -113,7 +113,7 @@ void CredentialService::createCredentialService(const User &user)
             Utilities::print("Failed to add credential 🚫");
         }
 
-        Utilities::print("Added Credential Successfully 🤗");
+        Utilities::print("Added Credential Successfully 🤗 ");
         std::cout << std::endl;
     }
 }
@@ -348,7 +348,7 @@ void CredentialService::updateCredentialService(const User &user)
             Utilities::print("Failed to update credential 🚫");
         }
 
-        Utilities::print("Updated Credential Successfully 🤗");
+        Utilities::print("Updated Credential Successfully 🤗 ");
         std::cout << std::endl;
     }
 }
@@ -415,6 +415,6 @@ void CredentialService::deleteCredentialService(const User &user)
         }
     }
 
-    Utilities::print("Deleted Credential Successfully 🤗");
+    Utilities::print("Deleted Credential Successfully 🤗 ");
     std::cout << std::endl;
 }

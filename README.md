@@ -38,12 +38,12 @@ If you see a message saying `cmake is not recognized` or something similar. Foll
 
 #### CMake Installation MacOS and Windows
 
-Install CMake (if not already installed)
+##### Install CMake
 
 ```sh
-brew install cmake #MacOS
+brew install cmake # MacOS
 
-https://cmake.org/download/ #Follow this URL for Windows
+https://cmake.org/download/ # Follow this URL for Windows
 ```
 
 #### OpenSSL Installation MacOS and Windows
@@ -53,52 +53,54 @@ The project uses OpenSSL for hashing and encryption/decryption of credentials.
 Check if OpenSSL is already installed
 
 ```sh
+openssl --version # both MacOS and Windows
+```
+
+##### Install OpenSSL MacOS
+
+```sh
 brew install openssl
 ```
 
-Install OpenSSL (if not already installed)
+After installation, if openssl is still not found, ensure shell configuration file (.zshrc, .bash_profile, etc) is updated.
 
-```sh
+##### Install OpenSSL Windows
 
-```
+Follow this link [How to install OpenSSL (3.0.1) on Windows 10 (64-bit)](https://youtu.be/jrHnP6Gazf0?si=E7tmClrxQrJZ7h6h). Installing versions `3.5.2` and above should be fine.
 
 #### Build Project and Run the executable
 
-Follow this steps once CMake has been installed, do the following:
+Follow this steps once CMake and OpenSSL have been installed, do the following:
 
 - Go to the root directory of the project.
 
-- Create a `build` directory, change the active directory to `build`
+- Execute the build scripts:
 
-```sh
-# ./ `This is the root directory`
+  ```sh
+  sh build.sh #MacOS
 
-mkdir build && cd build
-```
+  ./winbuild.bat # Windows Powershell
 
-- Build Makefiles using CMake
+  winbuild.bat # Windows Command Prompt (CMD)
+  ```
 
-```sh
-# ./build
+- Windows Powershell and CMD Emoji Configuration (_OPTIONAL_)
 
-cmake ..
-```
+  At times windows terminals need needs extra configurations allowing emojis to be displayed properlly the commands below help with that.
 
-- Execute make files
+  ```sh
+  [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 # Windows Powershell
 
-```sh
-# ./build
+  chcp 65001 # Windows Command Prompt (CMD)
+  ```
 
-make
-```
+- Run the executable:
 
-- Run the executable
+  ```sh
+  ./build/src/passlock # MacOS
 
-```sh
-# ./build
-
-./src/passlock
-```
+  .\build\src\Release\passlock.exe # Windows
+  ```
 
 ## High-Level System Design (My Thought Process on the implementation)
 
