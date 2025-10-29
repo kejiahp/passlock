@@ -43,7 +43,23 @@ Install CMake (if not already installed)
 ```sh
 brew install cmake #MacOS
 
-https://cmake.org/download/ #Follow this URL for windows
+https://cmake.org/download/ #Follow this URL for Windows
+```
+
+#### OpenSSL Installation MacOS and Windows
+
+The project uses OpenSSL for hashing and encryption/decryption of credentials.
+
+Check if OpenSSL is already installed
+
+```sh
+brew install openssl
+```
+
+Install OpenSSL (if not already installed)
+
+```sh
+
 ```
 
 #### Build Project and Run the executable

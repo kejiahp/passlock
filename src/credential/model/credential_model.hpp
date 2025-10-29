@@ -7,12 +7,16 @@
 
 #include "crypt/crypt.hpp"
 
+// Groups encryption/decryption IV and key
+// These are used to reveal Hexadecimal string password as plaintext
 struct RevealCredentialProps
 {
     std::string iv;
     std::string key;
 };
 
+// Credential Model
+// Class representation of the data stored in the `credentials` table
 class Credential
 {
 private:
