@@ -8,25 +8,61 @@
 #include "user/model/user_model.hpp"
 #include "credential/service/credential_service.hpp"
 
-// Main application singleton
-// Ensuring there is only one instance of the application live at anytime.
+/**
+ * @class MainApplication
+ * @brief Singleton class representing the main entry point of the application.
+ *
+ * This class ensures that only one instance of the application exists at any time.
+ * It manages the user session, initializes the database, and provides the main
+ * console-based user interface for account and credential management.
+ */
 class MainApplication
 {
 private:
+    /**
+     * @brief Holds the currently authenticated user session.
+     *
+     * If no user is logged in, this remains std::nullopt.
+     */
     std::optional<User> userSession = std::nullopt;
 
+    /**
+     * @brief Private constructor to enforce singleton pattern.
+     */
     MainApplication() = default;
+
+    /**
+     * @brief Private destructor to enforce singleton pattern.
+     */
     ~MainApplication() = default;
+    /**
+     * @brief Deleted copy constructor to prevent copying.
+     */
     MainApplication(const MainApplication &) = delete;
+
+    /**
+     * @brief Deleted assignment operator to prevent copying.
+     */
     MainApplication &operator=(const MainApplication &) = delete;
 
 public:
+    /**
+     * @brief Retrieve the singleton instance of MainApplication.
+     *
+     * @return Reference to the single MainApplication instance.
+     */
     static MainApplication &getInstance()
     {
         static MainApplication instance;
         return instance;
     }
 
+    /**
+     * @brief Start the application.
+     *
+     * Initializes the database, displays the landing menu, and handles
+     * user input for account creation or login.
+     */
     void start()
     {
         DB::seedDB(); // Seeds database with tables, ensure database exist on program start up
@@ -72,6 +108,12 @@ public:
     }
 
 private:
+    /**
+     * @brief Display the main menu for authenticated users.
+     *
+     * Provides options for managing credentials, including creating,
+     * viewing, searching, updating, and deleting, as well as logging out.
+     */
     void mainMenu()
     {
         if (!userSession)
@@ -136,12 +178,24 @@ private:
         }
     }
 
+    /**
+     * @brief Log out the current user.
+     *
+     * Clears the user session and returns to the landing menu.
+     */
     void logout()
     {
         userSession = std::nullopt;
     }
 };
 
+/**
+ * @brief Program entry point.
+ *
+ * Initializes and starts the MainApplication singleton.
+ *
+ * @return Exit status code (0 for success).
+ */
 int main()
 {
     MainApplication::getInstance().start();

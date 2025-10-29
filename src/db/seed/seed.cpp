@@ -6,11 +6,6 @@
 #include <SQLiteCpp/SQLiteCpp.h>
 #include "db.hpp"
 
-// Seeds the database:
-// - creates the `users` table.
-// - creates the `credentials table.`
-// - creates the `updatedAt` trigger for the `users` table.
-// - creates the `updatedAt` trigger for the `credentials` table.
 namespace DB
 {
     void seedDB()

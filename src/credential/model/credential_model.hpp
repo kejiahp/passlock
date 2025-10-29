@@ -7,16 +7,20 @@
 
 #include "crypt/crypt.hpp"
 
-// Groups encryption/decryption IV and key
-// These are used to reveal Hexadecimal string password as plaintext
+/**
+ * @struct RevealCredentialProps
+ * @brief Groups encryption/decryption IV and key. These are used to reveal Hexadecimal string password as plaintext
+ */
 struct RevealCredentialProps
 {
     std::string iv;
     std::string key;
 };
 
-// Credential Model
-// Class representation of the data stored in the `credentials` table
+/**
+ * @class Credential
+ * @brief Class representation of the data stored in the `credentials` table it will serve as our Object-Relational Mapper.
+ * */
 class Credential
 {
 private:
@@ -30,6 +34,13 @@ private:
     std::string createdAt;
     std::string updatedAt;
 
+    /**
+     * Return credentials password as plaintext or hexadecimal string.
+     *
+     * @param cipherText Password as an hexadecimal string
+     * @param revealProps `RevealCredentialProps` object to reveal password
+     * @return Plaintext or hexadecimal password
+     */
     std::string showPasswordString(const std::string &cipherText, const std::optional<RevealCredentialProps> &revealProps)
     {
         if (revealProps)
@@ -88,6 +99,13 @@ public:
         return *url;
     }
 
+    /**
+     * Maps result for SQL query to a `Credential` object.
+     *
+     * @param stmt Represent a single resulting row from the SQL query.
+     *
+     * @returns `Credential` object
+     */
     static Credential mapFromStatement(SQLite::Statement &stmt)
     {
         return Credential(
@@ -102,6 +120,13 @@ public:
             stmt.getColumn("updatedAt").getText());
     }
 
+    /**
+     * Converts `Credential` to a string representation
+     *
+     * @param reveal `RevealCredentialProps` object to reveal password
+     *
+     * @return Stringified credential
+     */
     std::string toString(std::optional<RevealCredentialProps> reveal = std::nullopt)
     {
         std::ostringstream output;
@@ -109,6 +134,13 @@ public:
         return output.str();
     }
 
+    /**
+     * Converts `Credential` to an incomplete-short string representation.
+     *
+     * @param reveal `RevealCredentialProps` object to reveal password
+     *
+     * @return Stringified credential
+     */
     std::string toShortString()
     {
         std::ostringstream output;

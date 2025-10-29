@@ -3,12 +3,26 @@
 #include <string>
 #include <SQLiteCpp/SQLiteCpp.h>
 
+/**
+ * @enum USER_TYPE
+ * @brief Represents the type of user in the system.
+ *
+ * This enumeration defines the different roles a user can have.
+ */
 enum class USER_TYPE
 {
-    NORMAL,
-    ADMIN
+    NORMAL, ///< Standard user with limited privileges.
+    ADMIN   ///< Standard user with limited privileges.
 };
 
+/**
+ * @brief Converts a USER_TYPE enum value to its string representation.
+ *
+ * @param ut The USER_TYPE value to convert.
+ * @return A C-style string representing the user type ("NORMAL" or "ADMIN").
+ *
+ * @note If an unknown USER_TYPE value is provided, the behavior is undefined.
+ */
 inline const char *USER_TYPE_ToString(USER_TYPE ut)
 {
     switch (ut)
@@ -20,6 +34,14 @@ inline const char *USER_TYPE_ToString(USER_TYPE ut)
     };
 }
 
+/**
+ * @brief Converts a string to its corresponding USER_TYPE enum value.
+ *
+ * @param ut The string representation of the user type ("NORMAL" or "ADMIN").
+ * @return The corresponding USER_TYPE value.
+ *
+ * @throws std::invalid_argument if the input string does not match a valid user type.
+ */
 inline USER_TYPE USER_TYPE_FromString(const std::string &ut)
 {
     // wanted to use a switch but C++ switches apparently only take enums and integrals 😅😭
@@ -37,6 +59,10 @@ inline USER_TYPE USER_TYPE_FromString(const std::string &ut)
     }
 }
 
+/**
+ * @class User
+ * @brief Class representation of the data stored in the `user` table it will serve as our Object-Relational Mapper.
+ * */
 class User
 {
 private:
@@ -68,6 +94,13 @@ public:
     std::string getIv() const { return iv; }
     std::string getKey() const { return key; }
 
+    /**
+     * Maps result for SQL query to a `User` object.
+     *
+     * @param stmt Represent a single resulting row from the SQL query.
+     *
+     * @returns `User` object
+     */
     static User mapFromStatement(SQLite::Statement &stmt)
     {
         return User(
