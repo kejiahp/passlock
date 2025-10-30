@@ -16,6 +16,10 @@ class CredentialService
 {
 public:
     /**
+     * @brief Service to display all credentials.
+     */
+    static void getAllCredentialService(const User &user);
+    /**
      * @brief Service to create a new credential for the given user.
      * @param user The user for whom the credential will be created.
      */

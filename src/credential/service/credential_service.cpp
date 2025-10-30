@@ -7,6 +7,35 @@
 #include "crypt/crypt.hpp"
 #include "query/user_query.hpp"
 
+void CredentialService::getAllCredentialService(const User &user)
+{
+    if (!user.isAdmin())
+    {
+        std::cout << "Unauthorized Access" << std::endl;
+        return;
+    }
+
+    Utilities::printLinePadding();
+    Utilities::printHorizonatalLine();
+    Utilities::printTextWithIndent("View all Credentials");
+    Utilities::printHorizonatalLine();
+    Utilities::printLinePadding();
+
+    std::vector<Credential> credentials = CredentialQueries::getAllCredentials();
+
+    if (credentials.empty())
+    {
+        std::cout << "No Credentials to Display" << std::endl;
+        return;
+    }
+
+    for (auto cred : credentials)
+    {
+        std::cout << cred.toShortString() << "\n";
+    }
+    std::cout << std::endl;
+}
+
 void CredentialService::createCredentialService(const User &user)
 {
     bool credentialNotCreated = true;
@@ -224,6 +253,12 @@ void CredentialService::updateCredentialService(const User &user)
     Utilities::print("Your Passwords");
     Utilities::printHorizonatalLine(10);
 
+    if (credential.empty())
+    {
+        std::cout << "No Credentials to Display" << std::endl;
+        return;
+    }
+
     for (auto cred : credential)
     {
         std::cout << cred.toShortString() << "\n";
@@ -399,7 +434,7 @@ void CredentialService::deleteCredentialService(const User &user)
         Utilities::print("Are you sure you want to delete this password? (Y/n): ");
         std::getline(std::cin, deleteConfirmation);
 
-        if (deleteConfirmation != "Y" || deleteConfirmation != "y")
+        if (deleteConfirmation != "Y" && deleteConfirmation != "y")
         {
             return;
         }

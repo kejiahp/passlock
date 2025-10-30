@@ -27,6 +27,31 @@ public:
     static std::vector<User> getAllUsers();
 
     /**
+     * @brief Delete user by their unique identifier.
+     *
+     * This function should only be used by administrators, as it exposes
+     * all user records.
+     *
+     * @param userId The unique identifier of the user.
+     * @return True if the user was successfully deleted, false otherwise.
+     */
+    static bool deleteUserById(const int &userId);
+
+    /**
+     * @brief Allows the update of the users password and email.
+     *
+     * This function should only be used by administrators, as it exposes
+     * all user records.
+     *
+     * @param userId The new status type of the user.
+     * @param email The new email of the user.
+     * @param password The new password of the user.
+     * @return True if the user was successfully updated, false otherwise.
+     */
+    static bool updateUserDetails(const int &userId, const std::optional<std::string> &email, const std::optional<std::string> &type,
+                                  const std::optional<std::string> &password);
+
+    /**
      * @brief Retrieve a user by their unique identifier.
      *
      * @param userId The unique identifier of the user.

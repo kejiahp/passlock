@@ -6,6 +6,26 @@
 #include "crypt/crypt.hpp"
 #include "credential_query.hpp"
 
+std::vector<Credential> CredentialQueries::getAllCredentials()
+{
+    try
+    {
+        std::vector<Credential> credentials;
+        SQLite::Database &db = DB::DatabaseManager::getInstance().getDB();
+        SQLite::Statement stmt(db, "SELECT * FROM credentials ORDER BY createdAt DESC;");
+        while (stmt.executeStep())
+        {
+            credentials.emplace_back(Credential::mapFromStatement(stmt));
+        }
+        return credentials;
+    }
+    catch (std::exception &e)
+    {
+        std::cerr << "🚫 SQLite execption ~ CredentialQueries::getAllCredentials ~ 🚫 =>" << e.what() << std::endl;
+        return std::vector<Credential>();
+    }
+}
+
 bool CredentialQueries::createCredential(const int &userId,
                                          const std::string &title,
                                          const std::optional<std::string> &email,
@@ -157,10 +177,12 @@ bool CredentialQueries::updateCredential(
             binder.emplace_back(std::make_pair(count, *url));
             ++count;
         }
+
         if (updates.size() <= 0)
         {
             return true;
         }
+
         std::ostringstream updateQuery;
         for (auto it = updates.begin(); it != updates.end(); ++it)
         {

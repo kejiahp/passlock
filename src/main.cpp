@@ -119,6 +119,7 @@ private:
         if (!userSession)
         {
             std::cout << "Unauthenticated User 🚫" << std::endl;
+            return;
         }
 
         Utilities::printLinePadding();
@@ -134,11 +135,22 @@ private:
             Utilities::printLinePadding();
 
             Utilities::print("[1] Add New Password\n");
-            Utilities::print("[2] View Password\n");
-            Utilities::print("[3] Search Password\n");
+            Utilities::print("[2] View Passwords\n");
+            Utilities::print("[3] Search Passwords\n");
             Utilities::print("[4] Update Password\n");
             Utilities::print("[5] Delete Password\n");
             Utilities::print("[6] Logout / Exit\n");
+
+            if (userSession->isAdmin())
+            {
+                Utilities::printLinePadding();
+                Utilities::print("Admin Actions \n");
+                Utilities::printHorizonatalLine(30);
+                Utilities::print("[7] View all Users\n");
+                Utilities::print("[8] Update User details\n");
+                Utilities::print("[9] Delete User\n");
+                Utilities::print("[10] View all Credentials\n");
+            }
 
             Utilities::printLinePadding();
 
@@ -169,6 +181,22 @@ private:
             {
                 logout();
                 return;
+            }
+            else if (cmd == "7")
+            {
+                UserService::getAllUsersService(*userSession);
+            }
+            else if (cmd == "8")
+            {
+                UserService::updateUserDetailsService(*userSession);
+            }
+            else if (cmd == "9")
+            {
+                UserService::deleteUserByIdService(*userSession);
+            }
+            else if (cmd == "10")
+            {
+                CredentialService::getAllCredentialService(*userSession);
             }
             else
             {

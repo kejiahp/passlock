@@ -144,7 +144,7 @@ public:
     std::string toShortString()
     {
         std::ostringstream output;
-        output << "{" << "id: " << id << ", title: " << title << "}";
+        output << "{" << "id: " << id << ", title: " << title << ", userId: " << userId << "}";
         return output.str();
     }
 };

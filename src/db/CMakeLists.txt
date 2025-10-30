@@ -7,5 +7,5 @@ message(STATUS "DB: " ${DB_SOURCES})
 add_library(db STATIC ${DB_SOURCES})
 
 
-target_link_libraries(db PRIVATE SQLiteCpp)
+target_link_libraries(db PRIVATE utilities SQLiteCpp)
 target_include_directories(db PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

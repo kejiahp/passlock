@@ -17,6 +17,14 @@ class CredentialQueries
 {
 public:
     /**
+     * @brief Retrieve all credentials in the system.
+     *
+     * This function should only be used by administrators, as it exposes
+     * all credential records.
+     */
+    static std::vector<Credential> getAllCredentials();
+
+    /**
      * @brief Retrieve all credentials associated with a given user.
      * @param userId The unique identifier of the user.
      * @return A vector of Credential objects belonging to the user.

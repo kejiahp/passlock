@@ -4,12 +4,51 @@
 
 #include <iostream>
 #include <SQLiteCpp/SQLiteCpp.h>
+
 #include "db.hpp"
+#include "crypt/crypt.hpp"
+
+namespace
+{
+    /**
+     *@brief Private function: only accessible within this file to seed the database with an admin
+     *   */
+    void seedADMIN(const SQLite::Database &db, const std::string &seedEmail, const std::string &seedPassword)
+    {
+        try
+        {
+            std::string key = Crypt::generate128BitHex();
+            std::string iv = Crypt::generate128BitHex();
+            SQLite::Statement stmt(db, "INSERT OR IGNORE INTO users (email, password, type, key, iv) VALUES(?, ?, ?, ?, ?);");
+            std::string passwordHash = Crypt::hashSHA256(seedPassword);
+            stmt.bind(1, seedEmail);
+            stmt.bind(2, passwordHash);
+            stmt.bind(3, "ADMIN");
+            stmt.bind(4, key);
+            stmt.bind(5, iv);
+            stmt.exec();
+            std::cout << "🚀 Admin seed successful 🚀" << std::endl;
+        }
+        catch (std::exception &e)
+        {
+            std::cerr << "🚫 Admin Seeding failed: " << e.what() << " 🚫" << std::endl;
+        }
+    }
+}
 
 namespace DB
 {
     void seedDB()
     {
+        std::string adminSeedEmail = "";    ///< Email is required to seed the database e.g. `admin@gmail.com`
+        std::string adminSeedPassword = ""; ///< Password is required to seed the database e.g. `passLockAdmin12345@`
+
+        if (adminSeedEmail.empty() || adminSeedPassword.empty())
+        {
+            std::cout << "🚫 Error thrown from file: ./src/db/seed/seed.cpp ;line 46 🚫" << std::endl;
+            throw std::invalid_argument("`adminSeedEmail` and `adminSeedPassword` required to seed the database");
+        }
+
         try
         {
             SQLite::Database db(DB::DATABASE_NAME, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
@@ -64,11 +103,12 @@ namespace DB
         END;
         )";
 
-            db.exec("PRAGMA foreign_keys = ON;");      // Enables foregin keys
-            db.exec(createUserTableQuery);             // Creates User table
-            db.exec(userTableUpdatedAtTriggerQuery);   // Creates users.updatedAt trigger
-            db.exec(credentialsTableQuery);            // Create Credentials table
-            db.exec(credentialsUpdatedAtTriggerQuery); // Create credentails.updatedAt trigger
+            db.exec("PRAGMA foreign_keys = ON;");             // Enables foregin keys
+            db.exec(createUserTableQuery);                    // Creates User table
+            db.exec(userTableUpdatedAtTriggerQuery);          // Creates users.updatedAt trigger
+            db.exec(credentialsTableQuery);                   // Create Credentials table
+            db.exec(credentialsUpdatedAtTriggerQuery);        // Create credentails.updatedAt trigger
+            seedADMIN(db, adminSeedEmail, adminSeedPassword); // Create admin if one does not exist.
 
             std::cout << "🚀 DB seed successfull" << " 🚀" << std::endl;
         }

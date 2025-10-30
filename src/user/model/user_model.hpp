@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sstream>
 #include <string>
 #include <SQLiteCpp/SQLiteCpp.h>
 
@@ -93,6 +94,7 @@ public:
     std::string getPassword() const { return password; }
     std::string getIv() const { return iv; }
     std::string getKey() const { return key; }
+    bool isAdmin() const { return type == USER_TYPE::ADMIN; }
 
     /**
      * Maps result for SQL query to a `User` object.
@@ -112,5 +114,17 @@ public:
             stmt.getColumn("iv").getText(),
             stmt.getColumn("createdAt").getText(),
             stmt.getColumn("updatedAt").getText());
+    }
+
+    /**
+     * Converts `User` to a string representation
+     *
+     * @return Stringified credential
+     */
+    std::string toString()
+    {
+        std::ostringstream output;
+        output << "{" << "id: " << id << ", email: " << email << ", password: " << std::string(5, '*') << ", type: " << USER_TYPE_ToString(type) << ", key: " << std::string(5, '*') << ", iv: " << std::string(5, '*') << ", createdAt: " << createdAt << ", updatedAt: " << updatedAt << "}";
+        return output.str();
     }
 };

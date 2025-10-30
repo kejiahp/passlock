@@ -96,6 +96,8 @@ Follow this steps once CMake and OpenSSL have been installed, do the following:
   winbuild.bat # Windows Command Prompt (CMD)
   ```
 
+- Within [./src/db/seed/seed.cpp; line 46](https://github.com/kejiahp/passlock/blob/1587778f8e461001e7c38b3bdbc8e925349ab679/src/db/seed/seed.cpp#L46), initialize the `adminSeedEmail` and `adminSeedPassword` variables with an appropriate email and password. These are required to seed the database with an admin user.
+
 - Windows Powershell and CMD Emoji Configuration (_OPTIONAL_)
 
   At times windows terminals need needs extra configurations allowing emojis to be displayed properlly the commands below help with that.

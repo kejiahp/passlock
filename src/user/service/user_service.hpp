@@ -15,6 +15,21 @@ class UserService
 {
 public:
     /**
+     * @brief Service to retrieve all users
+     */
+    static void getAllUsersService(const User &user);
+
+    /**
+     * @brief Service to delete a user and their credentials
+     */
+    static void deleteUserByIdService(const User &user);
+
+    /**
+     * @brief Serive to update a users details
+     */
+    static void updateUserDetailsService(const User &user);
+
+    /**
      * @brief Service to create a new user.
      *
      * This function encapsulates the logic required to create a new user account.
