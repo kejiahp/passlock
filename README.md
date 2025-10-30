@@ -140,6 +140,17 @@ Solution:
 - Account creation process, information like email (unique), password (it will be hashed) is collected and saved in a datastore, We will be using SQlite for datastore ensuring data persistence.
 - Login system where the user authenticates with their email and password. The password gets hashed and compared with the already stored hashed password. If they are same they are granted access to their data else an appropriate error message is displayed.
 
+- An admin will be created on seed of the database, Admins while have the following abilities:
+
+  1. View all other Users.
+  2. Make an already created User and Admin.
+  3. Make an User with Admin status a Normal User.
+  4. Update Users details.
+  5. View all credentials in short forms.
+  6. Delete Users.
+
+  Admins will not be able to update or delete other users credentials.
+
 ### 2. Storing and managing credentials for websites, desktop applications and games.
 
 Solution:
