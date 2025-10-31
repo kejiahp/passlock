@@ -46,6 +46,7 @@ namespace DB
         if (adminSeedEmail.empty() || adminSeedPassword.empty())
         {
             std::cout << "🚫 Error thrown from file: ./src/db/seed/seed.cpp ;line 46 🚫" << std::endl;
+            std::cout << "‼️ `adminSeedEmail` and `adminSeedPassword` required to seed the database ‼️" << std::endl;
             throw std::invalid_argument("`adminSeedEmail` and `adminSeedPassword` required to seed the database");
         }
 
