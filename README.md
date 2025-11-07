@@ -86,6 +86,8 @@ Follow this steps once CMake and OpenSSL have been installed, do the following:
 
 - Go to the root directory of the project.
 
+- Within [./src/db/seed/seed.cpp; line 46](https://github.com/kejiahp/passlock/blob/549a1c60a001623a495cb2b55b0ece3f1a0f409a/src/db/seed/seed.cpp#L43), initialize the `adminSeedEmail` and `adminSeedPassword` variables with an appropriate email and password. These are required to seed the database with an admin user. The default admin email and password are `admin@gmail.com` and `passLockAdmin12345@` respectively.
+
 - Execute the build scripts:
 
   ```sh
@@ -95,8 +97,6 @@ Follow this steps once CMake and OpenSSL have been installed, do the following:
 
   winbuild.bat # Windows Command Prompt (CMD)
   ```
-
-- Within [./src/db/seed/seed.cpp; line 46](https://github.com/kejiahp/passlock/blob/549a1c60a001623a495cb2b55b0ece3f1a0f409a/src/db/seed/seed.cpp#L43), initialize the `adminSeedEmail` and `adminSeedPassword` variables with an appropriate email and password. These are required to seed the database with an admin user.
 
 - Windows Powershell and CMD Emoji Configuration (_OPTIONAL_)
 

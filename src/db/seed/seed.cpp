@@ -40,8 +40,8 @@ namespace DB
 {
     void seedDB()
     {
-        std::string adminSeedEmail = "";    ///< Email is required to seed the database e.g. `admin@gmail.com`
-        std::string adminSeedPassword = ""; ///< Password is required to seed the database e.g. `passLockAdmin12345@`
+        std::string adminSeedEmail = "admin@gmail.com";        ///< Email is required to seed the database e.g. `admin@gmail.com`
+        std::string adminSeedPassword = "passLockAdmin12345@"; ///< Password is required to seed the database e.g. `passLockAdmin12345@`
 
         if (adminSeedEmail.empty() || adminSeedPassword.empty())
         {
